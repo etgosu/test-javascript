@@ -1,0 +1,24 @@
+//var 선언을 빼먹었을때 부작용
+
+// 세 개의 전역 변수를 정의한다.
+var global_var = 1;//명시적으로 선언된 변수
+global_novar =2; //암묵적으로 선언된 변수 (안티패턴)
+(function () {
+     global_fromfunc =3; //암묵적으로 선언된 변수 (안티패턴)
+}());
+
+//삭제해본다.
+delete global_var; //false
+delete global_novar; //true
+delete global_fromfunc; //true
+
+//삭제되었는지 확인해본다
+typeof global_var; //number 명시적으로 선언된 변수는 삭제 할 수 없다.
+typeof global_novar; //undefined 전역객체의 프로퍼티 이므로 삭제 가능
+typeof global_fromfunc; //undefined 전역객체의 프로퍼티 이므로 삭제 가능
+
+//결과는 암묵적으로 선언된 변수는 엄밀히 말하면 전역객체의 프로퍼티라는 것을 보여준다.
+
+console.log(typeof global_var);
+console.log(typeof global_novar);
+console.log(typeof global_fromfunc);
